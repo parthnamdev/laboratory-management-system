@@ -5,7 +5,7 @@ const homeController = require('../controllers/homeController');
 
 router.get('/', homeController.index);
 router.get('/addPatient', homeController.addPatientPage);
-router.get('/managePatient', homeController.managePatient);
+router.get('/createReport', homeController.createReport);
 router.get('/manageTest', homeController.manageTest);
 router.get('/sendReport', homeController.sendReport);
 router.get('/payments', homeController.payments);

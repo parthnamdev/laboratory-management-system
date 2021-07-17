@@ -6,8 +6,8 @@ const addPatientPage = (req, res) => {
     res.render('addPatient');
 }
 
-const managePatient = (req, res) => {
-    res.render('managePatient');
+const createReport = (req, res) => {
+    res.render('createReport');
 }
 
 const manageTest = (req, res) => {
@@ -23,6 +23,6 @@ const payments = (req, res) => {
 }
 
 module.exports = {
-    index, addPatientPage, managePatient, manageTest, sendReport, payments
+    index, addPatientPage, createReport, manageTest, sendReport, payments
 }
 
