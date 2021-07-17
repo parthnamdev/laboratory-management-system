@@ -1,0 +1,87 @@
+body {
+    background-color: darkcyan;
+}
+
+.custom-padding {
+    padding: 5% 12%;
+}
+
+/*navbar-----------------------------------------*/
+
+/* font-family: 'Sacramento', cursive; */
+/* 
+.navbar-brand{
+    font-size: 2.5vw;
+    
+    font-weight: bold;
+    color: #FC5185  ;
+}
+.navbar-brand:hover {
+    color: #364F6B;
+    opacity: 0.8;
+}
+
+@media (max-width:991px) and (min-width:575px){
+    .navbar-brand{
+        font-size: 3.5vw;
+    }
+}
+
+@media (max-width: 575px){
+    .navbar-brand{
+        font-size: 3.7vw;
+    }
+}
+
+.nav-link {
+    color: #364F6B;
+}
+.nav-item{
+    padding: 0 10px;
+}
+.nav-link:hover {
+    color: #3FC1C9;
+}
+.nav-btn {
+    background-color: #3FC1C9;
+    border-radius: 25px;
+    width: 100px;
+    color: white;
+    border: none;
+    
+}
+
+.nav-btn:hover, .nav-btn:focus {
+    background-color: #364F6B;
+    color: white;
+    box-shadow: none;
+}
+.dropdown-item:focus {
+    background-color: #FC5185;
+}
+@media (max-width:991px){
+    .nav-btn{
+        background: none;
+        width: auto;
+        color: #364F6B;
+    }
+    .nav-btn:hover, .nav-btn:focus{
+        color: #3FC1C9;
+        background: none;
+    }
+}
+.nav-toggler-icon {
+    color: #364F6B;
+}
+
+.navbar-toggler:focus {
+    outline: none;
+}
+
+#location .container-fluid{
+    padding-top: 2%;
+}
+
+#change-location {
+    margin-bottom: 300px;
+} */
