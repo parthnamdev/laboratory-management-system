@@ -5,16 +5,29 @@ const homeRouter = require('./routers/homeRouter');
 
 //express app
 const app = express();
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 //ejs view engines
 app.set('view engine','ejs');
-// app.set('views', path.join(__dirname, './views'))
+app.set('views', path.join(__dirname, './views'))
 
 //middleware and static files
-// app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: true}));
 // app.use(cookieParser(process.env.SESSION_SECRET));
 
+//db
+// const uri = `${"mongodb+srv://"+process.env.ATLAS_USER+":"+process.env.ATLAS_PASSWORD+"@"+process.env.ATLAS_CLUSTER+".fzmhp.mongodb.net/"+process.env.ATLAS_DB_NAME+"?retryWrites=true&w=majority"}`;
+const uri = 'mongodb://localhost:27017/laboryDB';
+mongoose.connect(uri, { useNewUrlParser:true, useUnifiedTopology:true, useCreateIndex: true, useFindAndModify: false });
+const db = mongoose.connection;
+
+db.on("error", (err) => {
+    console.log(err);
+});
+
+db.once("open", () => {
+    console.log("database connected");
+});
 
 //webpage display and load
 app.use('/',express.static(__dirname + '/public'));

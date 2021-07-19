@@ -10,5 +10,6 @@ router.get('/manageTest', homeController.manageTest);
 router.get('/sendReport', homeController.sendReport);
 router.get('/payments', homeController.payments);
 
+router.post('/addPatient', homeController.addPatient);
 
 module.exports = router;

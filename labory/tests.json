@@ -1,0 +1,338 @@
+[
+    {
+        "test": "COMPLETE BLOOD COUNT",
+        "entries": [
+            {
+            "name": "Haemoglobin",
+            "range": "men - 14 to 17 gm/dl, women - 12 to 15 gm/dL"
+            },
+            {
+                "name": "White blood cells",
+                "range": "4,500 to 10,000 cells per microliter (cells/mcL)"
+            },
+            {
+                "name": "Red blood cell",
+                "range": "Men- 14 to 17 gm/dL, women - 12 to 15 gm/dL"
+            },
+            {
+                "name": "Hematocrit",
+                "range": "It is normally 40% for men and 31% for women."
+            },
+            {
+                "name": "Mean corpuscular volume",
+                "range": "MCV score - 80 to 95"
+            },
+            {
+                "name": "Platelets",
+                "range": "140,000 to 450,000 cells/mcL"
+            },
+            {
+                "name": "ESR (Westegren) 1hr",
+                "range": "Male - 1-10mm, Female - 5-15mm"
+            }
+        ]
+    },
+    {
+         "test": "LIVER FUNCTION TESTS",
+         "entries":[{
+              "name":"Bilirubin Total",
+              "range":"0-1 mg/dl"
+         },
+         {
+               "name":"Conjugated(D.Bilirubin)",
+               "range":"0-0.35 mg/dl"
+          },
+          {
+               "name":"Unconjugated(I.D.Bilirubin)",
+               "range":"0.2-0.65 mg/dl"
+          },
+          {
+               "name":"SGOT (AST)",
+               "range":"10-40 iu/l"
+          },
+          {
+               "name":"SGPT (ALT)",
+               "range":"10-40 iu/"
+          },
+          {
+               "name":"Alkaline Phosphatase",
+               "range":"40-112 u/l"
+          },
+          {
+               "name":"Total Protein",
+               "range":"6-8.5 gm/l"
+          },
+          {
+               "name":"Albumin",
+               "range":"3.5-5 gm/l"
+          },
+          {
+               "name":"Globulin",
+               "range":"2-3.5 gm/l"
+          }
+     ]
+    },
+    {
+          "test": "KIDNEY FUNCTION TESTS",
+          "entries":[{
+               "name":"Blood urea",
+               "range":"10-50 mg/dl"
+          },
+          {
+               "name":"Serum Creatinine",
+               "range":"0.6–1.1 mg/dl In Women & 0.7–1.3 mg/dl In Men"
+          },
+          {
+               "name":"Serum Uric Acid",
+               "range":"2.4-6.0 mg/dl (female) and 3.4-7.0 mg/dl (male)"
+          },
+          {
+               "name":"Serum Sodium",
+               "range":"135-145 mmol/L"
+          },
+          {
+               "name":"Serum Potassium",
+               "range":"Adults: 3.5-5.1 mEq/L or mmol/L Children: 3.4-4.7 mEq/L or mmol/L (age dependent)"
+          },
+          {
+               "name":"Chloride",
+               "range":"98-106 mmol/L"
+          },
+          {
+               "name":"Total Protein",
+               "range":"6 -8.3 grams per deciliter(g/dL)"
+          }
+     ]
+     },
+     {
+          "test": "LIPID PROFILE (CHOLESTROL AND TRIGLYCERIDES)",
+          "entries":[{
+               "name":"Total Cholesterol",
+               "range":"<200 mg/dL"
+          },
+          {
+                "name":"Triglycerides",
+                "range":"10 to 150 mg/dL"
+           },
+           {
+                "name":"HDL Cholesterol High-density lipoprotein ",
+                "range":"> 40 to 60 mg/dL"
+           },
+           {
+                "name":"LDL Cholesterol Low-density lipoprotein ",
+                "range":"70 to 130 mg/dL"
+           },
+           {
+                "name":"VLDLVery Low-Density Lipoprotein ",
+                "range":"less than or equal to 2 to 30 mg/dL (0.1 to 1.7 mmol/l)"
+           }
+           
+      ]
+     },
+     {
+          "test": "BLOOD SUGAR TEST",
+          "entries":[{
+               "name":"Random",
+               "range": "normal - 79–160 mg/dl; prediabetes - N/A"
+          },
+          {
+               "name":"Fasting",
+               "range": "normal - 90 to 110mg/dL; prediabetes - 110 to 125 mg/dl"
+          },
+          {
+               "name":"2 hour postprandial",
+               "range": "normal - Below 140 mg/dl; prediabetes - 140 to 199 mg/dl"
+          },
+          {
+               "name":"Glucose tolerance test",
+               "range":"Fasting: 60 to 100 mg/dL; 1 hour:<200 mg/dL; 2 hour: <140 mg/dL"
+          }
+           
+      ]
+     },
+     {
+          "test": "URINE TEST",
+          "entries":[{
+               "name":"Color",
+               "range":"yellow"
+          },
+          {
+                "name":"Appearance ",
+                "range":"Clear"
+           },
+           {
+                "name":"Specific gravity (g/ml)",
+                "range":"1.005-1.030"
+           },
+           {
+                "name":"PH",
+                "range":"5.0-8.0"
+           },
+           {
+                "name":"Protein (mg/dl)",
+                "range":"Negative"
+           },
+           {
+                "name":"Glucose (mg/dl)",
+                "range":"Negative"
+           },
+           {
+                "name":"Ketones (mg/dl)",
+                "range":"Negative"
+           },
+           {
+                "name":"Bilirubin",
+                "range":"Negative"
+           },
+           {
+                "name":"Blood",
+                "range":"Negative"
+           },
+           {
+               "name":"Nitrite",
+               "range":"Negative"
+          },
+          {
+               "name":"Urobilinogen",
+               "range":"0.2-1.0"
+          },
+          {
+               "name":"Leukocyte esterase",
+               "range":"Negative"
+          },
+          {
+               "name":"WBC/HPF (WBCs per high power field, HPF)",
+               "range":"0-4"
+          },
+          {
+               "name":"Squamous epithelium",
+               "range":"0-4"
+          }
+          
+      ]
+     },
+     {
+          "test": "CARDIAC BLOOD TESTS",
+          "entries":[{
+               "name":"Creatine phosphokinase -MB (CPK-MB) ",
+               "range":"5 to 25 IU/L"
+          },
+          {
+                "name":"Troponin",
+                "range":"less than 0.01 ng/mL"
+           },
+           {
+                "name":"C-Reactive Protein and Heart Disease Risk",
+                "range":"low: Less than 1.0 mgL; Intermediate:1.0-2.9 mg; High:Greater than 3.0 mg"
+           }
+           
+      ]
+     },
+     {
+          "test": "THYROID FUNCTION TEST",
+          "entries":[{
+               "name":"TRIIODOTHYRONINE (T3)",
+               "range":"75 -200 ng/dL"
+          },
+          {
+               "name":"THYROXINE (T4)",
+               "range":"4.5 -11.5 ug/dL"
+          },
+          {
+               "name":"THYROIDSTIMULATING HORMONE (TSH)",
+               "range":"0.3 - 5.0 U/mL"
+          }
+     ]
+     },
+     {
+          "test": "BLOOD TESTS FOR INFERTILITY",
+          "entries":[{
+               "name":"FSH Follicle-stimulating hormone",
+               "range":"5-20 IU/L (THIRD DAY OF MENSTRUAL PERIOD)"
+          },
+          {
+                "name":"LH Luteinizing Hormone Level",
+                "range":"5 – 20 mIU/ ml 25 – 40 mIU/ml (24 – 36 hours before ovulation)"
+           },
+           {
+                "name":"Prolactin",
+                "range":"Non pregnant females: 2 to 29 ng /mL; Pregnant females: 10 to 209 ng/mL"
+           },
+           {
+                "name":"Ovarian Reserve (AMH) Test Anti-Mullerian Hormone",
+                "range":"high: Over 4.0 ng/ml; normal: 1.5-4.0 ng/ml; low normal range: 1.0-1.5 ng/ml; low:0.5-1.0 ng/ml"
+
+           },
+           {
+                "name":"Vitamin B12",
+                "range":"300-900 pg/ml"
+           },
+           {
+               "name":"Vitamin D",
+               "range":"20 nanograms/milliliter to 50 ng/ml"
+          },
+          {
+               "name":"Serum Calcium",
+               "range":"8.5-10.2 mg/dL"
+          },
+          {
+               "name":"Bone density test",
+               "range":"A T-score -1.0 or above is normal bone density. A T-score of -2.5 or below is a diagnosis of osteoporosis."
+          }
+           
+      ]
+     },
+     {
+          "test": "SEMAN ANALYSIS",
+          "entries":[{
+               "name":"Volume",
+               "range":"1.5 – 5 mL"
+          },
+          {
+               "name":"Concentration (sperm count)",
+               "range":"50 to 150 million"
+          },
+          {
+               "name":"Motility",
+               "range":"50 – 60%"
+          },
+          {
+               "name":"Morphology",
+               "range":"more than 50 percent"
+          },
+          {
+               "name":"Liquefaction",
+               "range":"It should take 15 to 30 minutes before semen liquifies."
+          },
+          {
+               "name":"pH level",
+               "range":"between 7.2 - 7.8"
+          }
+     ]
+     },
+     {
+          "test": "BLOOD TEST FOR ARTHRITIS",
+          "entries":[{
+               "name":"Rheumatoid factor (RF)",
+               "range":"Less than 15 IU/mL"
+          },
+          {
+               "name":"Antinuclear antibody (ANA)",
+               "range":"Positive or negetive"
+          },
+          {
+               "name":"Anti-cyclic citrullinated peptide (anti-CCP)",
+               "range":"Less than 20 u/ml"
+          },
+          {
+               "name":"HLA-B27",
+               "range":"Positive or negetive"
+          },
+          {
+               "name":"C-reactive protein",
+               "range":"Below 3.0 mg/dL"
+          }
+     ]
+     }
+
+]
