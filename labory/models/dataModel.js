@@ -10,7 +10,8 @@ const dataSchema = new mongoose.Schema({
          email: String,
          address: String
     },
-    tests: [String]
+    tests: [String],
+    uuid: String
 });
 
 const Data = mongoose.model('data', dataSchema);

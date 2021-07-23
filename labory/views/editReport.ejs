@@ -48,36 +48,23 @@
             </div>
         </nav>
     </div>
-
-    <div class="custom-padding">
-      <%if(patients.length>0){%>
-        <h1>Create Report</h1>
-        <% patients.forEach(element => { %>
-          <div class="col-lg-4 col-md-6 col-12">
-            <a href="/editReport/<%= element.uuid %>" class="">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title" ><%= element.patient.name %></h5>
-                  
-                  <%if(element.tests.length>0){%>
-                  <h6 class="card-subtitle mb-2 text-muted">Tests</h6>
-                  <% element.tests.forEach(test => { %>
-                  <p class="card-text"><%= test %></p>
-                  
-                  <% }); %>
-                  <% } %>
-                </div>
-              </div>
-            </a>
-          </div>
-        <% }); %>
-        <% } else {%>
-          <h1>No data found</h1>
-        <% } %>
-        
-    </div>
     
-
+    <div class="custom-padding">
+      <h1><%= name %></h1>
+      <form action="" method="post">
+      <% tests.forEach(element => { %>
+          <h2><%= element.name %></h2>
+          
+            <% element.entries.forEach(entry => { %>
+              <div class="mb-3 col-lg-4 col-md-6">
+                <label for="name" class="form-label"><%= entry.name %></label>
+                <input type="text" class="form-control" id="name" name="name">
+              </div>
+            <% }); %>
+          
+      <% }); %>
+      </form>       
+    </div>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

@@ -6,6 +6,13 @@ body {
     padding: 5% 12%;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    color: black;
+}
 /*navbar-----------------------------------------*/
 
 /* font-family: 'Sacramento', cursive; */

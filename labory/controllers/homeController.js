@@ -1,5 +1,6 @@
 const Test = require("../models/testModel");
 const Data = require("../models/dataModel");
+const { v4: uuidv4 } = require('uuid');
 
 const index = (req, res) => {
     res.render('index');
@@ -40,6 +41,7 @@ const addPatient = (req, res)=>{
              email: req.body.email,
              address: req.body.address
         },
+        uuid: uuidv4(),
         tests: req.body.tests
     });
     newData.save(function(err, data) {
@@ -66,8 +68,49 @@ const addPatient = (req, res)=>{
 
 }
 const createReport = (req, res) => {
-    res.render('createReport');
+
+    Data.find({}).then(found => {
+        
+        res.render('createReport', {patients: found});
+
+    }).catch(err => {
+
+        // console.log(err);
+        res.render('err', {error: err});
+    })
+    
 }
+
+const editReport = (req, res) => {
+    Data.findOne({uuid: req.params.uuid}).then(found => {
+        let result = [];
+        let errr = "";
+        
+            found.tests.forEach(name => {
+                
+                Test.findOne({test: name}).then(test => {
+                    result.push(test);
+                }).catch(err1 => {
+                    errr = err1;
+                });
+                
+            });
+
+        if(errr.length > 0) {
+            res.render('err', {error: errr});
+        } else {
+            res.render('editReport', {tests: result, name: found.patient.name});
+        }
+        
+    }).catch(err => {
+        res.render('err', {error: err});
+        
+    });
+    
+}
+
+
+
 
 const manageTest = (req, res) => {
     res.render('manageTest');
@@ -82,6 +125,6 @@ const payments = (req, res) => {
 }
 
 module.exports = {
-    index, addPatientPage, createReport, manageTest, sendReport, payments, addPatient
+    index, addPatientPage, createReport, manageTest, sendReport, payments, addPatient, editReport
 }
 
