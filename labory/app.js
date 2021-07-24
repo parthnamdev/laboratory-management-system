@@ -33,6 +33,10 @@ db.once("open", () => {
 app.use('/',express.static(__dirname + '/public'));
 app.use('/',express.static(__dirname + "/node_modules/@fortawesome"));
 
+app.use('/editReport',express.static(__dirname + '/public'));
+app.use('/editReport',express.static(__dirname + "/node_modules/@fortawesome"));
+
+
 // app.use(bodyparser.urlencoded({extended:true}));
 
 // main router

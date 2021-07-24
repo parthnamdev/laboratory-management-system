@@ -82,30 +82,84 @@ const createReport = (req, res) => {
 }
 
 const editReport = (req, res) => {
+    
+    var ex = []
+    var errr = "";
+    const result = [];
     Data.findOne({uuid: req.params.uuid}).then(found => {
-        let result = [];
-        let errr = "";
         
-            found.tests.forEach(name => {
+        
+        found.tests.forEach( name => {
                 
-                Test.findOne({test: name}).then(test => {
-                    result.push(test);
-                }).catch(err1 => {
-                    errr = err1;
-                });
+            ex.push(name)
                 
-            });
+                // await Test.findOne({test: name}, (err, test) => {
+                //     if(!err) {
+                //         const original = result;
+                //         let newArray;
 
-        if(errr.length > 0) {
-            res.render('err', {error: errr});
-        } else {
-            res.render('editReport', {tests: result, name: found.patient.name});
-        }
+                //         newArray = original.concat(test);
+                //         // newArray = [...original, '🦄'];
+                //         result = newArray;
+                //         result.push(test);
+                        
+                //     }
+                // })
+                
+                // console.log(result);
+            });
+            // console.log(ex);
+            // result.push('1');
+            // result.push('2');
+            
+            // ex.forEach(naam => {
+                Test.find({test: {$in: ex}}).then(test => {
+                    // console.log(test);
+                    // result = test;
+                    res.render('editReport', {tests: test, name: found.patient.name});
+                // result.push(test);
+            
+            }).catch(err1 => {
+                errr = err1;
+            });
+            // });
+            // console.log('2');
+            // console.log(result);
+            // if(errr.length > 0) {
+            //     res.render('err', {error: errr});
+            // } else {
+            //     console.log(result);
+            //     res.render('editReport', {tests: result, name: found.patient.name});
+            // }
+        
         
     }).catch(err => {
         res.render('err', {error: err});
         
     });
+    // console.log(ex);
+    
+    // Data.findOne({uuid: req.params.uuid}, (err, found) => {
+    //     const result = [];
+    //     let errr = "";
+        
+    //     found.tests.forEach( name => {
+                
+    //         Test.findOne({test: name}, test => {
+    //             result.push(test);
+            
+    //         });
+           
+    //     });
+
+    //     if(errr.length > 0) {
+    //         res.render('err', {error: errr});
+    //     } else {
+    //         console.log(result);
+    //         res.render('editReport', {tests: result, name: found.patient.name});
+    //     }
+
+    // })
     
 }
 
