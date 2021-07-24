@@ -163,7 +163,18 @@ const editReport = (req, res) => {
     
 }
 
-
+const editReport = async (req,res) => {
+    try{
+        const found = await Data.findOne({uuid: req.params.uuid});
+        var result = [];
+        found.tests.forEach( async name => {
+            let temp = await Test.finOne({test: name});
+            result.push(temp);
+        }
+    }finally{
+        await res.render('editReport', {tests: result, name: found.patient.name});                  
+    }
+}
 
 
 const manageTest = (req, res) => {
