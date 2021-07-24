@@ -12,5 +12,5 @@ router.get('/sendReport', homeController.sendReport);
 router.get('/payments', homeController.payments);
 
 router.post('/addPatient', homeController.addPatient);
-
+router.post('/saveReport/:uuid',homeController.saveReport);
 module.exports = router;

@@ -1,6 +1,7 @@
 const Test = require("../models/testModel");
 const Data = require("../models/dataModel");
 const { v4: uuidv4 } = require('uuid');
+const Report = require("../models/reportModel");
 
 const index = (req, res) => {
     res.render('index');
@@ -48,7 +49,7 @@ const addPatient = (req, res)=>{
         if(err) {
             console.log(err);
             
-            res.render('err', {alert: alert});
+            res.render('err', {error: err});
         }
         else {
             let alert = 'Submitted successfully';
@@ -83,99 +84,97 @@ const createReport = (req, res) => {
 
 const editReport = (req, res) => {
     
-    var ex = []
-    var errr = "";
-    const result = [];
+    var names = []
+    
     Data.findOne({uuid: req.params.uuid}).then(found => {
         
-        
-        found.tests.forEach( name => {
-                
-            ex.push(name)
-                
-                // await Test.findOne({test: name}, (err, test) => {
-                //     if(!err) {
-                //         const original = result;
-                //         let newArray;
+        found.tests.forEach( name => {    
+            names.push(name)
+        });
+            
+        Test.find({test: {$in: names}}).then(match=> {
 
-                //         newArray = original.concat(test);
-                //         // newArray = [...original, '🦄'];
-                //         result = newArray;
-                //         result.push(test);
-                        
-                //     }
-                // })
-                
-                // console.log(result);
-            });
-            // console.log(ex);
-            // result.push('1');
-            // result.push('2');
+            Report.findOne({uuid: req.params.uuid}).then(report => {
+                if(report) {
+                    res.render('editReport', {tests: match, name: found.patient.name, uuid: req.params.uuid, values: report.tests});
+                } else {
+                    res.render('editReport', {tests: match, name: found.patient.name, uuid: req.params.uuid, values: []});
+                }
+            })
+
             
-            // ex.forEach(naam => {
-                Test.find({test: {$in: ex}}).then(test => {
-                    // console.log(test);
-                    // result = test;
-                    res.render('editReport', {tests: test, name: found.patient.name});
-                // result.push(test);
-            
-            }).catch(err1 => {
-                errr = err1;
-            });
-            // });
-            // console.log('2');
-            // console.log(result);
-            // if(errr.length > 0) {
-            //     res.render('err', {error: errr});
-            // } else {
-            //     console.log(result);
-            //     res.render('editReport', {tests: result, name: found.patient.name});
-            // }
-        
+        }).catch(err1 => {
+            res.render('err', {error: err1});
+        });
         
     }).catch(err => {
         res.render('err', {error: err});
         
     });
-    // console.log(ex);
+}
+const saveReport = (req, res) => {
     
-    // Data.findOne({uuid: req.params.uuid}, (err, found) => {
-    //     const result = [];
-    //     let errr = "";
-        
-    //     found.tests.forEach( name => {
-                
-    //         Test.findOne({test: name}, test => {
-    //             result.push(test);
+    Report.findOne({uuid: req.params.uuid}).then( found => {
+        if(found) {
+
+            found.tests.forEach(updateTest => {
+                updateTest.values = req.body[`${updateTest.name}`];
+            })
+
+            found.save(function(err, data) {
+                if(err) {
+                    console.log(err);
+                    res.render('err', {error: err});
+                }
+                else {
+                    res.redirect('/createReport');
+                }
+            });
+        } else {
             
-    //         });
            
-    //     });
+            Data.findOne({uuid: req.params.uuid}).then(required => {
+                let tests = [];
+                
+                Test.find({test: {$in : required.tests}}).then(match => {
+                    match.forEach(test => {
+                        tests.push({
+                            name: test.test,
+                            entries: test.entries,
+                            values: req.body[`${test.test}`]
+                        })
+                    })
 
-    //     if(errr.length > 0) {
-    //         res.render('err', {error: errr});
-    //     } else {
-    //         console.log(result);
-    //         res.render('editReport', {tests: result, name: found.patient.name});
-    //     }
+                    // console.log(tests);
+                    const newInput = new Report({
+                        tests: tests,
+                        uuid: req.params.uuid
+                    })
 
-    // })
+                    newInput.save(function(err, data) {
+                        if(err) {
+                            console.log(err);
+                            res.render('err', {error: err});
+                        }
+                        else {
+                            res.redirect('/createReport');
+                        }
+                    });
+
+                }).catch(err => {
+                    res.render('err', {error: err});
+                });
+                
+            }).catch(err => {
+                res.render('err', {error: err});
+                
+            });
+        }
+    }).catch(err => {
+        res.render('err', {error: err});
+    });
     
 }
-
-const editReport = async (req,res) => {
-    try{
-        const found = await Data.findOne({uuid: req.params.uuid});
-        var result = [];
-        found.tests.forEach( async name => {
-            let temp = await Test.finOne({test: name});
-            result.push(temp);
-        }
-    }finally{
-        await res.render('editReport', {tests: result, name: found.patient.name});                  
-    }
-}
-
 
 const manageTest = (req, res) => {
     res.render('manageTest');
@@ -190,6 +189,5 @@ const payments = (req, res) => {
 }
 
 module.exports = {
-    index, addPatientPage, createReport, manageTest, sendReport, payments, addPatient, editReport
+    index, addPatientPage, createReport, manageTest, sendReport, payments, addPatient, editReport, saveReport
 }
-
