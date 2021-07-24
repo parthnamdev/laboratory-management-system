@@ -118,7 +118,7 @@ const editReport = async (req,res) => {
             result.push(temp);
         }
     }finally{
-        res.render('editReport', {tests: result, name: found.patient.name});                  
+        await res.render('editReport', {tests: result, name: found.patient.name});                  
     }
 }
 
