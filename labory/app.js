@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const homeRouter = require('./routers/homeRouter');
+const testRouter = require('./routers/testRouter');
 
 //express app
 const app = express();
@@ -36,10 +37,13 @@ app.use('/',express.static(__dirname + "/node_modules/@fortawesome"));
 app.use('/editReport',express.static(__dirname + '/public'));
 app.use('/editReport',express.static(__dirname + "/node_modules/@fortawesome"));
 
+app.use('/test',express.static(__dirname + '/public'));
+app.use('/test',express.static(__dirname + "/node_modules/@fortawesome"));
 
 // app.use(bodyparser.urlencoded({extended:true}));
 
-// main router
+// routers
+app.use('/test', testRouter);
 app.use('/', homeRouter);
 
 

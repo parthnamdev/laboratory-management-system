@@ -49,42 +49,31 @@
         </nav>
     </div>
 
-    <div class="custom-padding">
-      <h1>manage test</h1>
-      <div class="row">
-        <% tests.forEach(element => { %>
-          <div class="col-lg-3 col-md-4 cart-item">
-            <div class="card mx-auto">
-              <div class="card-body text-left">
-                <form action="/test/delete" method="POST">
-                  <input type="hidden" name="test" value="<%= element.test %>" id="">
-                  <h5><%= element.test %></h5>
-                  <% element.entries.forEach(entry => { %>
-                  <p class="card-text"><%= entry.name %></p>
-                  <% }); %>
-                  <button type="submit" class="fas fa-minus card-link cart-minus addresses-icon"></button>
-                </form>
-                <form action="/test/update" method="post">
-                <input type="hidden" name="test" value="<%= element.test %>" id="">
-                <button type="submit" class="fas fa-pen card-link cart-minus addresses-icon"></button>
-              </form>
+   <div class="custom-padding">
+        <form action="/test/updateTest" method="post">
+          <h5>Test Details</h5>
+             <div class="mb-3 col-lg-3 col-md-6 col-12 ">
+              <label for="test" class="form-label">Name</label>
+              <input type="text" class="form-control" id="test" name="test" value="<%= test_details.test %>">
+            </div>
+            <div class="row">
+             <% for(let i =0; i<test_details.entries.length; i++){ %>
+              <h5>Entry <%= i %></h5>
+              <div class="mb-3 col-lg-3 col-md-6 col-12">
+                <label for="test" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="<%= test_details.entries[i].name %>">
               </div>
+              <div class="mb-3 col-lg-3 col-md-6 col-12">
+               <label for="test" class="form-label">Range</label>
+               <input type="text" class="form-control" id="range" name="range" value="<%= test_details.entries[i].range %>">
+             </div>
+               
+             <% } %>
+             <input type="hidden" value="<%= test_details._id %>" name="tid">
             </div>
-          </div>
-        <% }); %>
-        <div class="col-lg-3 col-md-4 cart-item">
-          <div class="card mx-auto">
-            <div class="card-body text-left">
-              <form action="/test/add" method="post">
-                <h5>New test</h5>
-              <input type="number" class="card-text new-address" name="no_of_entries" min="1" max="100" required>
-              <button type="submit" class="fas fa-plus card-link cart-minus addresses-icon"></button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            <button type="submit">Update Test</button>
+        </form>
+   </div>
 
 </body>
 

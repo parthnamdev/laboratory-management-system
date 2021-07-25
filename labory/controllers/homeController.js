@@ -177,7 +177,7 @@ const saveReport = (req, res) => {
 }
 
 const manageTest = (req, res) => {
-    res.render('manageTest');
+    res.redirect('/test');
 }
 
 const sendReport = (req, res) => {
