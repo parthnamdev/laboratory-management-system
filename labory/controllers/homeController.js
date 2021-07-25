@@ -148,7 +148,9 @@ const saveReport = (req, res) => {
                     // console.log(tests);
                     const newInput = new Report({
                         tests: tests,
-                        uuid: req.params.uuid
+                        uuid: req.params.uuid,
+                        patient: required.patient.name
+
                     })
 
                     newInput.save(function(err, data) {
@@ -180,14 +182,33 @@ const manageTest = (req, res) => {
     res.redirect('/test');
 }
 
-const sendReport = (req, res) => {
-    res.render('sendReport');
+const allReport = (req, res) => {
+    Report.find({}).then(found => {
+        res.render('sendReport', {reports: found});
+    }).catch(err => {
+        res.render('err', {error: err});
+    });
+    
 }
+const viewReport = (req,res) => {
+    
+    Report.findOne({uuid: req.params.uuid}).then(found => {
+        
+        Data.findOne({uuid: req.params.uuid}).then(data => {
+            res.render('viewReport',{report: found, patient: data.patient});
+            
+        }).catch(err => {
+            res.render('err', {error: err});
+        });
 
+    }).catch(err => {
+        res.render('err', {error: err});
+    });
+}
 const payments = (req, res) => {
     res.render('payments');
 }
 
 module.exports = {
-    index, addPatientPage, createReport, manageTest, sendReport, payments, addPatient, editReport, saveReport
+    index, addPatientPage, createReport, manageTest, allReport, payments, addPatient, editReport, saveReport, viewReport
 }

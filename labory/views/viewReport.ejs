@@ -37,9 +37,6 @@
                     <a class="nav-link" href="/manageTest">Manage Tests</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/payments">Payments</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="/sendReport">Send Report</a>
                   </li>
 
@@ -49,7 +46,62 @@
         </nav>
     </div>
 
-    <h1>payments</h1>
+    <div class="custom-padding">
+
+        <table class="table table-dark">
+            <tbody>
+              <tr>
+                <td>Name</td>
+                <td><%= patient.name %></td>
+              </tr>
+              <tr>
+                <td>Age</td>
+                <td><%= patient.age %></td>
+              </tr>
+              <tr>
+                <td>Date</td>
+                <td><%= patient.date %></td>
+              </tr>
+              <tr>
+                <td>Number</td>
+                <td><%= patient.number %></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><%= patient.email %></td>
+              </tr>
+              <tr>
+                <td>Address</td>
+                <td><%= patient.address %></td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <% report.tests.forEach(test => { %>
+            <h3><%= test.name %></h3>
+            <table class="table table-dark">
+                <tbody>
+                    <thead>
+                        <tr>
+                          <th scope="col">Entry Name</th>
+                          <th scope="col">Value</th>
+                          <th scope="col">Range</th>
+                        </tr>
+                      </thead>
+                <% for (let index = 0; index < test.entries.length; index++) { %>
+                    <tr>
+                      <td><%= test.entries[index].name %></td>
+                      <td><%= test.values[index] %></td>
+                      <td><%= test.entries[index].range %></td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+          <% }) %> 
+
+          
+        
+    </div>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

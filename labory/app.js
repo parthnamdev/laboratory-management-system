@@ -40,6 +40,8 @@ app.use('/editReport',express.static(__dirname + "/node_modules/@fortawesome"));
 app.use('/test',express.static(__dirname + '/public'));
 app.use('/test',express.static(__dirname + "/node_modules/@fortawesome"));
 
+app.use('/viewReport',express.static(__dirname + '/public'));
+app.use('/viewReport',express.static(__dirname + "/node_modules/@fortawesome"));
 // app.use(bodyparser.urlencoded({extended:true}));
 
 // routers

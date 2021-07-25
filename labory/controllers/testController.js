@@ -54,26 +54,35 @@ const update = (req, res) => {
 const updateTest = (req, res) => {
     const entry_names = req.body.name;
     const entry_range = req.body.range;
-    let entries = [];
 
-    for (let index = 0; index < entry_names.length; index++) {
-        entries.push({
-            name: entry_names[index],
-            range: entry_range[index]
+    if(!entry_names){
+        Test.findByIdAndDelete(req.body.tid).then(docs => {
+            res.redirect('/test');
+        }).catch(err => {
+            res.render('err',{error: err});
+       })
+    } else {
+        let entries = [];
+        
+        for (let index = 0; index < entry_names.length; index++) {
+            entries.push({
+                name: entry_names[index],
+                range: entry_range[index]
+            })
+        }
+        
+        const updated = {
+            test: req.body.test,
+            entries: entries
+        }
+    
+        Test.findByIdAndUpdate(req.body.tid, updated).then(docs => {
+            res.redirect('/test');
+        }).catch(err => {
+             res.render('err',{error: err});
         })
-    }
     
-    const updated = {
-        test: req.body.test,
-        entries: entries
     }
-
-    Test.findByIdAndUpdate(req.body.tid, updated).then(docs => {
-        res.redirect('/test');
-    }).catch(err => {
-         res.render('err',{error: err});
-    })
-    
 }
 
 const remove = (req, res) => {

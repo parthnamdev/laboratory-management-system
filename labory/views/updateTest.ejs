@@ -37,9 +37,6 @@
                     <a class="nav-link" href="/manageTest">Manage Tests</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/payments">Payments</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="/sendReport">Send Report</a>
                   </li>
 
@@ -52,30 +49,53 @@
    <div class="custom-padding">
         <form action="/test/updateTest" method="post">
           <h5>Test Details</h5>
-             <div class="mb-3 col-lg-3 col-md-6 col-12 ">
+             <div class="mb-3 col-lg-3 col-md-6 col-12">
               <label for="test" class="form-label">Name</label>
               <input type="text" class="form-control" id="test" name="test" value="<%= test_details.test %>">
             </div>
-            <div class="row">
+            <div id="entryList">
              <% for(let i =0; i<test_details.entries.length; i++){ %>
-              <h5>Entry <%= i %></h5>
+               <div id="<%= i %>" class="row">
+              <h5>Entry <%= i + 1 %> <button type="button" class="fas fa-minus card-link cart-minus addresses-icon" name="<%= i %>" onclick="removeEntry(this.name)"></button></h5>
               <div class="mb-3 col-lg-3 col-md-6 col-12">
                 <label for="test" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="<%= test_details.entries[i].name %>">
+                <input type="text" class="form-control " id="name" name="name" value="<%= test_details.entries[i].name %>">
               </div>
               <div class="mb-3 col-lg-3 col-md-6 col-12">
                <label for="test" class="form-label">Range</label>
                <input type="text" class="form-control" id="range" name="range" value="<%= test_details.entries[i].range %>">
              </div>
-               
+              </div>
              <% } %>
              <input type="hidden" value="<%= test_details._id %>" name="tid">
+             <input type="hidden" value="<%= test_details.entries.length %>" id="count">
+            </div>
+            <div>
+            <button type="button" class="fas fa-plus card-link cart-minus addresses-icon" onclick="addEntry()"></button>
             </div>
             <button type="submit">Update Test</button>
         </form>
    </div>
 
 </body>
+<script>
+  const removeEntry = (num) => {
+    var toRemove = document.getElementById(`${num}`);
+    toRemove.remove();
+  }
+  var count = parseInt(document.getElementById('count').value);
+  const addEntry = () => {
+    var node = document.createElement("div");
 
+    document.getElementById("entryList").appendChild(node);
+
+    node.innerHTML = '<h5>New Entry <button type="button" class="fas fa-minus card-link cart-minus addresses-icon" onclick="removeEntry('+ count +')"></button></h5> <div class="mb-3 col-lg-3 col-md-6 col-12"><label for="test" class="form-label">Name</label><input type="text" class="form-control " id="name" name="name" value=""></div><div class="mb-3 col-lg-3 col-md-6 col-12"><label for="test" class="form-label">Range</label><input type="text" class="form-control" id="range" name="range" value=""></div>';
+    node.setAttribute("id", count);
+    node.setAttribute("class", "row");
+    count = count + 1;
+
+  }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </html>
