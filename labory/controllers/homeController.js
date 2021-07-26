@@ -2,6 +2,14 @@ const Test = require("../models/testModel");
 const Data = require("../models/dataModel");
 const { v4: uuidv4 } = require('uuid');
 const Report = require("../models/reportModel");
+const ejs = require('ejs');
+const path = require('path');
+const fs = require('fs')
+const utils = require('util')
+const puppeteer = require('puppeteer')
+// const jsPDF = require('jspdf');
+// const autoTable = require('jspdf-autotable');
+
 
 const index = (req, res) => {
     res.render('index');
@@ -205,10 +213,93 @@ const viewReport = (req,res) => {
         res.render('err', {error: err});
     });
 }
-const payments = (req, res) => {
-    res.render('payments');
-}
+
+
+const downloadReport = (req, res) => {
+    
+    Report.findOne({ uuid: req.params.uuid })
+      .then((found) => {
+
+        Data.findOne({ uuid: req.params.uuid })
+          .then(async (datum) => {
+
+            const readFile = utils.promisify(fs.readFile);
+
+            async function getTemplateHtml() {
+              console.log("Loading template file in memory");
+
+              try {
+                const invoicePath = path.resolve("./views/viewReport.ejs");
+                return await readFile(invoicePath, "utf8");
+              } catch (err) {
+                return Promise.reject("Could not load html template");
+              }
+
+            }
+
+            async function generatePdf() {
+              getTemplateHtml()
+                .then(async (resp) => {
+
+                  console.log("Compiing the template");
+  
+                  ejs.renderFile(
+                    path.join(__dirname, "../views/", "viewReport.ejs"),
+                    {
+                      report: found,
+                      patient: datum.patient,
+                    },
+                    async (err, data) => {
+
+                      if (err) {
+                        res.render("err", { error: err });
+                      } else {
+                        // We can use this to add dyamic data to our handlebas template at run time from database or API as per need. you can read the official doc to learn more https://handlebarsjs.com/
+                        const html = data;
+  
+                        // we are using headless mode
+                        const browser = await puppeteer.launch();
+                        const page = await browser.newPage();
+  
+                        // We set the page content as the generated html by handlebars
+                        await page.setContent(html);
+  
+                        // We use pdf function to generate the pdf in the same folder as this file.
+                        const date = Date.now();
+                        await page.pdf({ path: `./tmp/${datum.patient.number}_report.pdf`, format: "A4" });
+  
+                        await browser.close();
+                        console.log("PDF Generated");
+                        res.download(`./tmp/${datum.patient.number}_report.pdf`, `${datum.patient.number}_report.pdf`);
+                      }
+                    }
+                  );
+                })
+                .catch((err) => {
+                    res.render("err", { error: err });
+                    console.error(err);
+                });
+            }
+            generatePdf();
+           
+            // setTimeout(() => {
+            //     res.download(`./tmp/${datum.patient.number}_report.pdf`, `${datum.patient.number}_report.pdf`);
+            // }, 4000);
+            
+            
+            
+          })
+          .catch((err) => {
+            res.render("err", { error: err });
+          });
+      })
+      .catch((err) => {
+        res.render("err", { error: err });
+      });
+  };
+  
+
 
 module.exports = {
-    index, addPatientPage, createReport, manageTest, allReport, payments, addPatient, editReport, saveReport, viewReport
+    index, addPatientPage, createReport, manageTest, allReport, addPatient, editReport, saveReport, viewReport, downloadReport
 }

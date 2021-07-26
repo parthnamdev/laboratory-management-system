@@ -44,6 +44,8 @@ app.use('/viewReport',express.static(__dirname + '/public'));
 app.use('/viewReport',express.static(__dirname + "/node_modules/@fortawesome"));
 // app.use(bodyparser.urlencoded({extended:true}));
 
+app.use('/downloadReport',express.static(__dirname + '/public'));
+app.use('/downloadReport',express.static(__dirname + "/node_modules/@fortawesome"));
 // routers
 app.use('/test', testRouter);
 app.use('/', homeRouter);
