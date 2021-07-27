@@ -1,53 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%- include("partials/header"); -%> 
 
-    <!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <!-- fontawesome -->
-    <link rel="stylesheet" href="fontawesome-free/css/all.css">
-
-    <!-- custom stylesheet -->
-    <link rel="stylesheet" href="styles.css">
-
-    <title>Labory</title>
-</head>
-<body>
-    
-    <div class="custom-padding">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="/">LABORY</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto justify-content-end">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/addPatient">Add Patient</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/createReport">Create Report</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/manageTest">Manage Tests</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/sendReport">Send Report</a>
-                  </li>
-
-                </ul>
-              </div>
-            </div>
-        </nav>
+<div class="custom-padding">
+    <div class="row mt-4">
+        <div class="col-lg-5 col-md-8 col-sm-10 col-10 me-auto landing-container">
+        <h1 class="landing">
+            <a href="" class="typewrite" data-period="2000" data-type='[ "Hi, I am Labory.", "I am your Assistant.", "I Love to Manage.", "What do you want me to do Today?", "Add Patient?", "Manage Tests?", "Create Reports?" ]'>
+              <span class="wrap"></span>
+            </a>
+        </h1>
+        </div>
+        <img src="images/index.svg" alt="" class="col-lg-5 col-md-6 col-sm-12 col-12 ms-auto">
+        
     </div>
 
+    <div class="row">
+        <a class="btn btn-outline-dark btn-lg col-lg-3 col-md-5 col-sm-12 col-12 me-auto mt-5"href="#get-started" role="button">Get Started</a>
+    </div>
+
+    <div id="get-started"></div>
+
+    <div class="row large-top-padding">
+        <img src="images/index2.svg" alt="" class="col-lg-5 col-md-6 col-sm-12 col-12 me-auto">
+        <div class="col-lg-6 col-md-5 col-sm-12 col-10 ms-auto">
+            <h1 class="mb-3 col-lg-5 col-md-8 col-sm-12 col-12 m-2 ">What next?</h1>
+            <a class="btn btn-outline-dark btn-lg col-lg-5 col-md-8 col-sm-12 col-12 ms-auto m-2" href="/addPatient" role="button">Add Patient</a>
+            <a class="btn btn-outline-dark btn-lg col-lg-5 col-md-8 col-sm-12 col-12 ms-auto m-2" href="/createReport" role="button">Create Report</a>
+            <a class="btn btn-outline-dark btn-lg col-lg-5 col-md-8 col-sm-12 col-12 ms-auto m-2" href="/manageTest" role="button">Manage Test</a>
+            <a class="btn btn-outline-dark btn-lg col-lg-5 col-md-8 col-sm-12 col-12 ms-auto m-2" href="/sendReport" role="button">Send Report</a>
+        </div>
+        <a class="btn btn-outline-dark btn-lg col-lg-3 col-md-5 col-sm-12 col-12 me-auto mt-5" href="#maintenance" role="button">Got Stuck?</a>
+    </div>
+
+    <div id="maintenance"></div>
+
+    <div class="row large-top-padding">
+        <div class="col-lg-4 col-md-8 col-sm-12 col-12 my-4 me-auto">
+        <div class="card custom-card">
+            <div class="card-body">
+              <h5 class="card-title mb-4">Call for Help</h5>
+              <h6 class="card-subtitle my-2 text-muted">Parth Namdev: +91 87585 03600</h6>
+              <h6 class="card-subtitle my-2 text-muted">Soham Faldu: +91 94089 34979</h6>
+            </div>
+          </div>
+        </div>
+        <img src="images/index3.svg" alt="" class="col-lg-5 col-md-8 col-sm-12 col-12 ms-auto mt-4">
+        
+    </div>
+
+</div>
+<script>
+    var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+              new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.1rem solid #1B262C; color: #3282B8}";
+        document.body.appendChild(css);
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>

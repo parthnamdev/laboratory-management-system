@@ -1,20 +1,91 @@
+:root {
+    --bg: #f6f6f6;
+    --darkBlue: #3282B8;
+    --lightBlue: #3282B8;
+    --dark: #1B262C;
+    --light: #BBE1FA;
+}
+/* font-family: 'Montserrat', sans-serif; */
 body {
-    background-color: darkcyan;
+    background-color: var(--bg);
+    font-size: 1.2rem;
+    font-family: 'Cabin', sans-serif;
+    color: var(--dark);
 }
 
 .custom-padding {
-    padding: 5% 12%;
+    padding: 5% 12% 1%;
+}
+
+.large-top-padding {
+    margin-top: 250px;
+}
+
+h1 {
+    font-size: 2.1rem;
+    color: var(--darkBlue);
 }
 
 a {
     text-decoration: none;
-    color: black;
+    color: var(--dark);
 }
 a:hover {
-    color: black;
+    color: var(--dark);
 }
+
 /*navbar-----------------------------------------*/
 
+.nav-link {
+    color: var(--darkBlue);
+}
+
+.nav-link:hover {
+    color: var(--dark);
+}
+.navbar-brand{
+    font-size: 2.5vw;
+    /* font-weight: bold; */
+    color: var(--dark) !important;
+    letter-spacing: 15px;
+    /* font-family: 'Montserrat', sans-serif; */
+    margin-left: -10px;
+    font-family: 'Zen Tokyo Zoo', cursive;
+}
+
+@media (max-width: 767px) {
+    .navbar-brand {
+        font-size: 5vw;
+    }
+  }
+
+/* index----------------------------------------------------------- */
+
+.landing{
+    font-size: 3.5rem;
+}
+
+.landing-container {
+    min-height: 300px;
+}
+
+.custom-card {
+    padding: 5%;
+    border: solid 3px var(--dark);
+    border-radius: 25px;
+    box-shadow: 2px 5px 5px rgb(0, 0, 0, 0.2);
+}
+
+/* add patient */
+
+input, textarea, select {
+    border-color: grey !important;
+    border-radius: 25px !important;
+}
+
+/* .right {
+    float: right;
+} */
 /* font-family: 'Sacramento', cursive; */
 /* 
 .navbar-brand{
