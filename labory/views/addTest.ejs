@@ -1,27 +1,36 @@
 <%- include("partials/header"); -%> 
-
+    
    <div class="custom-padding">
+    <h1>New Test</h1>
         <form action="/test/addTest" method="post">
-          <h5>Test Details</h5>
+          
              <div class="mb-3 col-lg-3 col-md-6 col-12 ">
-              <label for="test" class="form-label">Name</label>
-              <input type="text" class="form-control" id="test" name="test">
+              <label for="test" class="form-label">Test Name</label>
+              <input type="text" class="form-control" id="test" name="test" required>
+              <small>eg. Blood sugar Test</small>
             </div>
             <div class="row">
+            
              <% for(let i =0; i<no_of_entries; i++){ %>
-              <h5>Entry <%= i %></h5>
+              <h5>Entry <%= i+1 %></h5>
               <div class="mb-3 col-lg-3 col-md-6 col-12">
                 <label for="test" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <input type="text" class="form-control" id="name" name="name" required>
               </div>
               <div class="mb-3 col-lg-3 col-md-6 col-12">
                <label for="test" class="form-label">Range</label>
-               <input type="text" class="form-control" id="range" name="range">
+               <input type="text" class="form-control" id="range" name="range" required>
              </div>
                
              <% } %>
             </div>
-            <button type="submit">Add Test</button>
+            <div class="row">
+            <!-- <div class="mb-3 col-lg-3 col-md-6 col-12"> -->
+              <small class="col-lg-3 col-md-6 col-12">eg. Name: Haemoglobin </small>
+              <small class="col-lg-3 col-md-6 col-12">eg. Range: men - 14 to 17 gm/dl, women - 12 to 15 gm/dL</small>
+            <!-- </div> -->
+            </div>
+            <button class="btn btn-dark mt-4" type="submit">Add Test</button>
         </form>
    </div>
 

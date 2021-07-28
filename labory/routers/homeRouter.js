@@ -13,6 +13,8 @@ router.get('/sendReport', homeController.allReport);
 router.get('/viewReport/:uuid',homeController.viewReport);
 // router.get('/sendReport', homeController.allReport);
 router.get('/downloadReport/:uuid', homeController.downloadReport);
+router.get('/sendReport/:uuid',homeController.sendReport);
+router.get('/deleteReport/:uuid',homeController.deleteReport);
 
 router.post('/addPatient', homeController.addPatient);
 router.post('/saveReport/:uuid',homeController.saveReport);

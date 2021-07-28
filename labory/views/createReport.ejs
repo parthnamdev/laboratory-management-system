@@ -6,17 +6,17 @@
         <% patients.forEach(element => { %>
           <div class="col-lg-4 col-md-6 col-12">
             <a href="/editReport/<%= element.uuid %>" class="">
-              <div class="card my-5">
+              <div class="card my-3 custom-card">
                 <div class="card-body">
                   <h5 class="card-title" ><%= element.patient.name %></h5>
-                  
+                  <div class="card-scroll-overflow">
                   <%if(element.tests.length>0){%>
-                  <h6 class="card-subtitle mb-2 text-muted">Tests</h6>
+                  <h6 class="card-subtitle my-2 text-muted">Tests</h6>
                   <% element.tests.forEach(test => { %>
                   <p class="card-text"><%= test %></p>
-                  
                   <% }); %>
                   <% } %>
+                </div>
                 </div>
               </div>
             </a>

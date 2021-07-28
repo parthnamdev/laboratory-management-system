@@ -87,6 +87,7 @@ const createReport = (req, res) => {
         // console.log(err);
         res.render('err', {error: err});
     })
+
     
 }
 
@@ -198,7 +199,25 @@ const allReport = (req, res) => {
     });
     
 }
-const viewReport = (req,res) => {
+
+const sendReport = (req, res) => {
+    res.send('Baki che toppa');
+}
+
+const deleteReport = (req, res) => {
+    Report.findOneAndDelete({uuid: req.params.uuid}).then( doc => {
+        Data.findOneAndDelete({uuid: req.params.uuid}).then(docs => {
+            res.redirect('/sendReport');
+        }).catch(err => {
+            res.render('err', {error: err});
+        });
+
+    }).catch(err => {
+        res.render('err', {error: err});
+    });
+}
+
+const viewReport = (req, res) => {
     
     Report.findOne({uuid: req.params.uuid}).then(found => {
         
@@ -301,5 +320,5 @@ const downloadReport = (req, res) => {
 
 
 module.exports = {
-    index, addPatientPage, createReport, manageTest, allReport, addPatient, editReport, saveReport, viewReport, downloadReport
+    index, addPatientPage, createReport, manageTest, allReport, addPatient, editReport, saveReport, viewReport, downloadReport, sendReport, deleteReport
 }

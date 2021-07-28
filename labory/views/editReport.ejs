@@ -2,8 +2,8 @@
     
     <div class="custom-padding">
       <h1><%= name %></h1>
-      <form action="/saveReport/<%= uuid %>" method="post" class="row">
-      
+      <form action="/saveReport/<%= uuid %>" method="post">
+        <div class="row">
         <% for(let i = 0; i < tests.length; i++){ %>
           <h2><%= tests[i].test %></h2>
           
@@ -22,7 +22,10 @@
             
             
       <% }; %>
-      <button type="submit" class="btn btn-dark">Submit</button>
+    </div>
+      <!-- <div class="row"> -->
+      <button type="submit" class="btn btn-lg btn-dark mt-4">Submit</button>
+      <!-- </div> -->
       </form>       
     </div>
 </body>

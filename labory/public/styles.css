@@ -1,7 +1,6 @@
 :root {
     --bg: #f6f6f6;
     --darkBlue: #3282B8;
-    --lightBlue: #3282B8;
     --dark: #1B262C;
     --light: #BBE1FA;
 }
@@ -33,6 +32,32 @@ a {
 a:hover {
     color: var(--dark);
 }
+
+/* scroll bar */
+
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+   
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--bg); 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 5px; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--darkBlue); 
+  } 
+
+
 
 /*navbar-----------------------------------------*/
 
@@ -70,10 +95,9 @@ a:hover {
 }
 
 .custom-card {
-    padding: 5%;
-    border: solid 3px var(--dark);
-    border-radius: 25px;
-    box-shadow: 2px 5px 5px rgb(0, 0, 0, 0.2);
+    padding: 1%;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px lightgray;
 }
 
 /* add patient */
@@ -81,6 +105,41 @@ a:hover {
 input, textarea, select {
     border-color: grey !important;
     border-radius: 25px !important;
+}
+
+/* manage tests */
+
+.card-scroll-overflow {
+    height: 160px;
+    overflow-y: scroll;
+}
+
+.custom-icon {
+    border: none;
+    border-radius: 25px;
+    padding: 4%;
+    margin-left: 10px;
+    float: right;
+}
+
+.custom-icon-small {
+    border: none;
+    border-radius: 25px;
+    padding: 1.5%;
+    margin-left: 10px;
+    float: right;
+    background-color: var(--dark);
+    color: var(--bg);
+}
+
+.custom-icon:hover, .custom-icon-small:hover {
+    color: var(--bg);
+    background-color: var(--darkBlue);
+}
+
+.custom-form-control{
+    width: 75%;
+    display: inline;
 }
 
 /* .right {
