@@ -1,24 +1,26 @@
 <%- include("partials/header"); -%> 
 
    <div class="custom-padding">
-        <form action="/test/updateTest" method="post">
-          <h1>Edit Test</h1>
-             <div class="mb-3 col-lg-3 col-md-6 col-12">
+    <h1>Edit Test</h1>
+    <div class="row">
+        <form action="/test/updateTest" method="post" class="col-md-6 col-12 mb-5">
+          
+             <div class="mb-3 col-lg-6 col-md-12 col-12">
               <label for="test" class="form-label">Name</label>
               <input type="text" class="form-control" id="test" name="test" value="<%= test_details.test %>">
             </div>
-            <div id="entryList" class="col-lg-6 col-md-12 col-12">
+            <div id="entryList" class="col-md-12 col-12">
              <% for(let i =0; i<test_details.entries.length; i++){ %>
                <div id="<%= i %>" class="row">
               <h5>Entry <%= i + 1 %> <button type="button" class="fas fa-minus card-link custom-icon-small" name="<%= i %>" onclick="removeEntry(this.name)"></button></h5> 
               
               
             
-              <div class="mb-3 col-lg-6 col-md-6 col-12">
+              <div class="mb-3 col-lg-6 col-md-12 col-12">
                 <label for="test" class="form-label">Name</label>
                 <input type="text" class="form-control " id="name" name="name" value="<%= test_details.entries[i].name %>">
               </div>
-              <div class="mb-3 col-lg-6 col-md-6 col-12">
+              <div class="mb-3 col-lg-6 col-md-12 col-12">
                <label for="test" class="form-label">Range</label>
                <input type="text" class="form-control" id="range" name="range" value="<%= test_details.entries[i].range %>">
              </div>
@@ -27,11 +29,13 @@
              <input type="hidden" value="<%= test_details._id %>" name="tid">
              <input type="hidden" value="<%= test_details.entries.length %>" id="count">
             </div>
-            <div class="col-lg-6 col-md-12 col-12">
+            <div class="col-md-12 col-12">
             <button type="button" class="fas fa-plus card-link custom-icon-small" onclick="addEntry()"></button>
             </div>
             <button type="submit" class="btn btn-dark">Update Test</button>
         </form>
+        <img src="images/edit.svg" alt="" class="col-md-4 col-12 ms-auto mb-auto">
+      </div>
         <div class="my-5"></div>
    </div>
 
@@ -47,7 +51,7 @@
 
     document.getElementById("entryList").appendChild(node);
 
-    node.innerHTML = '<h5>New Entry <button type="button" class="fas fa-minus card-link custom-icon-small" onclick="removeEntry('+ count +')"></button></h5> <div class="mb-3 col-lg-6 col-md-6 col-12"><label for="test" class="form-label">Name</label><input type="text" class="form-control " id="name" name="name" value=""></div><div class="mb-3 col-lg-6 col-md-6 col-12"><label for="test" class="form-label">Range</label><input type="text" class="form-control" id="range" name="range" value=""></div>';
+    node.innerHTML = '<h5>New Entry <button type="button" class="fas fa-minus card-link custom-icon-small" onclick="removeEntry('+ count +')"></button></h5> <div class="mb-3 col-lg-6 col-md-12 col-12"><label for="test" class="form-label">Name</label><input type="text" class="form-control " id="name" name="name" value=""></div><div class="mb-3 col-lg-6 col-md-12 col-12"><label for="test" class="form-label">Range</label><input type="text" class="form-control" id="range" name="range" value=""></div>';
     node.setAttribute("id", count);
     node.setAttribute("class", "row");
     count = count + 1;

@@ -8,7 +8,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1920,
     height: 1080,
-    icon: path.join(__dirname, 'public/images/logo.png'),
+    icon: path.join(__dirname, '../public/images/favicon.ico'),
     autoHideMenuBar: true,
     useContentSize: true,
     resizable: true,

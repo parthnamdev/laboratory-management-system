@@ -1,5 +1,6 @@
 const Test = require("../models/testModel");
 
+
 const index = (req, res) => {
     Test.find({}).then(found => {
         res.render('manageTest', {tests: found});
@@ -26,7 +27,7 @@ const addTest = (req, res) => {
     }
     
     const newTest = new Test({
-        test: req.body.test,
+        test: (req.body.test).toUpperCase(),
         entries: entries
     })
 
@@ -44,7 +45,7 @@ const addTest = (req, res) => {
 
 const update = (req, res) => {
 
-    Test.findOne({test: req.body.test}).then(found => {
+    Test.findById(req.body.test).then(found => {
         res.render('updateTest', {test_details: found});
     }).catch(err => {
          res.render('err',{error: err});
@@ -72,7 +73,7 @@ const updateTest = (req, res) => {
         }
         
         const updated = {
-            test: req.body.test,
+            test: (req.body.test).toUpperCase(),
             entries: entries
         }
     
@@ -86,7 +87,7 @@ const updateTest = (req, res) => {
 }
 
 const remove = (req, res) => {
-     Test.findOneAndDelete({test: req.body.test}).then(docs => {
+     Test.findByIdAndDelete(req.body.test).then(docs => {
         res.redirect('/test');
         
      }).catch(err => {

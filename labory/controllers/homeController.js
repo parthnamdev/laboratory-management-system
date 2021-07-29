@@ -6,9 +6,11 @@ const ejs = require('ejs');
 const path = require('path');
 const fs = require('fs')
 const utils = require('util')
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer');
+const Profile = require("../models/profileModel");
 // const jsPDF = require('jspdf');
 // const autoTable = require('jspdf-autotable');
+
 
 
 const index = (req, res) => {
@@ -36,13 +38,17 @@ const addPatientPage = (req, res) => {
     // })
 
 }
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 const addPatient = (req, res)=>{
 
     //const time = new Date().toLocaleString();
+    
 
     const newData = new Data({
         patient: {
-             name: req.body.name,
+             name: capitalizeFirstLetter(req.body.name),
              age: req.body.age,
              gender: req.body.gender,
              date: req.body.date,
@@ -158,7 +164,8 @@ const saveReport = (req, res) => {
                     const newInput = new Report({
                         tests: tests,
                         uuid: req.params.uuid,
-                        patient: required.patient.name
+                        patient: required.patient.name,
+                        remark: 'No remarks'
 
                     })
 
@@ -222,7 +229,12 @@ const viewReport = (req, res) => {
     Report.findOne({uuid: req.params.uuid}).then(found => {
         
         Data.findOne({uuid: req.params.uuid}).then(data => {
-            res.render('viewReport',{report: found, patient: data.patient});
+
+            Profile.find({}).then(profile => {
+                res.render('viewReport',{report: found, patient: data.patient, profile: profile[0]});
+            }).catch(err => {
+            res.render('err', {error: err});
+            });
             
         }).catch(err => {
             res.render('err', {error: err});
@@ -242,68 +254,77 @@ const downloadReport = (req, res) => {
         Data.findOne({ uuid: req.params.uuid })
           .then(async (datum) => {
 
-            const readFile = utils.promisify(fs.readFile);
+            Profile.find({}).then(profile => {
+                const readFile = utils.promisify(fs.readFile);
 
-            async function getTemplateHtml() {
-              console.log("Loading template file in memory");
-
-              try {
-                const invoicePath = path.resolve("./views/viewReport.ejs");
-                return await readFile(invoicePath, "utf8");
-              } catch (err) {
-                return Promise.reject("Could not load html template");
-              }
-
-            }
-
-            async function generatePdf() {
-              getTemplateHtml()
-                .then(async (resp) => {
-
-                  console.log("Compiing the template");
-  
-                  ejs.renderFile(
-                    path.join(__dirname, "../views/", "viewReport.ejs"),
-                    {
-                      report: found,
-                      patient: datum.patient,
-                    },
-                    async (err, data) => {
-
-                      if (err) {
+                async function getTemplateHtml() {
+                  console.log("Loading template file in memory");
+                
+                  try {
+                    const invoicePath = path.resolve("./views/downloadReport.ejs");
+                    return await readFile(invoicePath, "utf8");
+                  } catch (err) {
+                    return Promise.reject("Could not load html template");
+                  }
+                
+                }
+            
+                async function generatePdf() {
+                  getTemplateHtml()
+                    .then(async (resp) => {
+                    
+                      console.log("Compiing the template");
+                    
+                      ejs.renderFile(
+                        path.join(__dirname, "../views/", "downloadReport.ejs"),
+                        {
+                          report: found,
+                          patient: datum.patient,
+                          profile: profile[0]
+                        },
+                        async (err, data) => {
+                        
+                          if (err) {
+                            res.render("err", { error: err });
+                          } else {
+                            // We can use this to add dyamic data to our handlebas template at run time from database or API as per need. you can read the official doc to learn more https://handlebarsjs.com/
+                            const html = data;
+                        
+                            // we are using headless mode
+                            const browser = await puppeteer.launch();
+                            const page = await browser.newPage();
+                        
+                            // We set the page content as the generated html by handlebars
+                            await page.setContent(html);
+                        
+                            // We use pdf function to generate the pdf in the same folder as this file.
+                            const date = Date.now();
+                            await page.pdf({ path: `./tmp/${datum.patient.number}_report.pdf`, format: "A4", printBackground: true, preferCSSPageSize: true });
+                        
+                            await browser.close();
+                            console.log("PDF Generated");
+                            res.download(`./tmp/${datum.patient.number}_report.pdf`, `${datum.patient.number}_report.pdf`);
+                          }
+                        }
+                      );
+                    })
+                    .catch((err) => {
                         res.render("err", { error: err });
-                      } else {
-                        // We can use this to add dyamic data to our handlebas template at run time from database or API as per need. you can read the official doc to learn more https://handlebarsjs.com/
-                        const html = data;
-  
-                        // we are using headless mode
-                        const browser = await puppeteer.launch();
-                        const page = await browser.newPage();
-  
-                        // We set the page content as the generated html by handlebars
-                        await page.setContent(html);
-  
-                        // We use pdf function to generate the pdf in the same folder as this file.
-                        const date = Date.now();
-                        await page.pdf({ path: `./tmp/${datum.patient.number}_report.pdf`, format: "A4" });
-  
-                        await browser.close();
-                        console.log("PDF Generated");
-                        res.download(`./tmp/${datum.patient.number}_report.pdf`, `${datum.patient.number}_report.pdf`);
-                      }
-                    }
-                  );
-                })
-                .catch((err) => {
-                    res.render("err", { error: err });
-                    console.error(err);
-                });
-            }
-            generatePdf();
-           
-            // setTimeout(() => {
-            //     res.download(`./tmp/${datum.patient.number}_report.pdf`, `${datum.patient.number}_report.pdf`);
-            // }, 4000);
+                        console.error(err);
+                    });
+                }
+                generatePdf();
+            
+                // setTimeout(() => {
+                //     res.download(`./tmp/${datum.patient.number}_report.pdf`, `${datum.patient.number}_report.pdf`);
+                // }, 4000);
+            
+            
+            }).catch(err => {
+            res.render('err', {error: err});
+            });
+
+            
             
             
             
@@ -317,8 +338,110 @@ const downloadReport = (req, res) => {
       });
   };
   
+const profile = (req, res) => {
+    Profile.find({}).then(found => {
+        if(found.length > 0){
+            res.render('profile',{alert:"", profile: found[0]});
+        } else {
+            res.render('profile',{alert:"", profile: {}});
+        }
+    }).catch(err => {
+        res.render('err', {error: err});
+    })
+
+}
+
+const updateProfile = (req, res) => {
+
+    Profile.find({}).then(found => {
+        if(found.length > 0){
+
+            found[0].name = req.body.name;
+            found[0].number = req.body.number;
+            found[0].email = req.body.email;
+            found[0].address = req.body.address;
+
+            found[0].save( function(err, data) {
+                if(err) {
+                    res.render('err', {error: err});
+                } else {
+                    res.redirect('/profile');
+                }
+            })
+        } else {
+
+            const newProfile = new Profile({
+                name: req.body.name,
+                number: req.body.number,
+                email: req.body.email,
+                address: req.body.address,
+                logo: ''
+            }) 
+
+            newProfile.save( (err, data) => {
+                if(err) {
+                    res.render('err', {error: err});
+                } else {
+                    res.redirect('/profile');
+                }
+            })
+        }
+    }).catch(err => {
+        res.render('err', {error: err});
+    })
+
+    
+}
+
+const updateImage = (req, res) => {
+    if(req.file) {
+        // console.log('this is file');
+        // console.log(req.file);
+
+
+        Profile.find({}).then(found => {
+            if(found.length > 0){
+    
+                found[0].logo = req.file.buffer.toString('base64');
+                found[0].mimetype = req.file.mimetype;
+                
+                found[0].save( function(err, data) {
+                    if(err) {
+                        res.render('err', {error: err});
+                    } else {
+                        res.redirect('/profile');
+                    }
+                })
+            } else {
+                res.render('profile', {alert: "Please fill profile details first", profile: {}});
+            }
+        }).catch(err => {
+            res.render('err', {error: err});
+        })
+
+    } else {
+
+        Profile.find({}).then(found => {
+            if(found.length > 0){
+                res.render('profile', {alert: "File should be png/jpeg of size less then 11 MB", profile: found[0]});
+            } else {
+                res.render('profile', {alert: "File should be png/jpeg of size less then 11 MB", profile: {}});
+            }
+        }).catch(err => {
+            res.render('err', {error: err});
+        })
+    }
+}
+
+const changeRemark = (req, res) => {
+    Report.findOneAndUpdate({uuid: req.params.uuid}, {remark: req.body.remarks}).then(found =>{
+        res.redirect(`/viewReport/${found.uuid}`);
+    }).catch(err => {
+        res.render('err', {error: err});
+    })
+}
 
 
 module.exports = {
-    index, addPatientPage, createReport, manageTest, allReport, addPatient, editReport, saveReport, viewReport, downloadReport, sendReport, deleteReport
+    index, addPatientPage, createReport, manageTest, allReport, addPatient, editReport, saveReport, viewReport, downloadReport, sendReport, deleteReport, profile, updateProfile, updateImage, changeRemark
 }

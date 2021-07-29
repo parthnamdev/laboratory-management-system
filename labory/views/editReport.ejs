@@ -5,7 +5,7 @@
       <form action="/saveReport/<%= uuid %>" method="post">
         <div class="row">
         <% for(let i = 0; i < tests.length; i++){ %>
-          <h2><%= tests[i].test %></h2>
+          <h2 class="mt-5 mb-3"><%= tests[i].test %></h2>
           
             <% for(let j = 0; j < tests[i].entries.length; j++){ %>
               <div class="mb-3 col-lg-4 col-md-6">

@@ -10,7 +10,8 @@ const reportSchema = new mongoose.Schema({
         values: [String]
     }],
     uuid: String,
-    patient: String
+    patient: String,
+    remark: String
 });
 
 const Report = mongoose.model('report', reportSchema);
