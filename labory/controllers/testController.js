@@ -28,7 +28,8 @@ const addTest = (req, res) => {
     
     const newTest = new Test({
         test: (req.body.test).toUpperCase(),
-        entries: entries
+        entries: entries,
+        price: req.body.price
     })
 
     newTest.save(function(err, data) {
@@ -74,7 +75,8 @@ const updateTest = (req, res) => {
         
         const updated = {
             test: (req.body.test).toUpperCase(),
-            entries: entries
+            entries: entries,
+            price: req.body.price
         }
     
         Test.findByIdAndUpdate(req.body.tid, updated).then(docs => {

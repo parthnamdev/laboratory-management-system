@@ -8,9 +8,6 @@ const fs = require('fs')
 const utils = require('util')
 const puppeteer = require('puppeteer');
 const Profile = require("../models/profileModel");
-// const jsPDF = require('jspdf');
-// const autoTable = require('jspdf-autotable');
-
 
 
 const index = (req, res) => {
@@ -156,10 +153,11 @@ const saveReport = (req, res) => {
                         tests.push({
                             name: test.test,
                             entries: test.entries,
-                            values: req.body[`${test.test}`]
+                            values: req.body[`${test.test}`],
+                            price: test.price
                         })
                     })
-
+                    
                     // console.log(tests);
                     const newInput = new Report({
                         tests: tests,
@@ -207,9 +205,7 @@ const allReport = (req, res) => {
     
 }
 
-const sendReport = (req, res) => {
-    res.send('Baki che toppa');
-}
+
 
 const deleteReport = (req, res) => {
     Report.findOneAndDelete({uuid: req.params.uuid}).then( doc => {
@@ -443,5 +439,5 @@ const changeRemark = (req, res) => {
 
 
 module.exports = {
-    index, addPatientPage, createReport, manageTest, allReport, addPatient, editReport, saveReport, viewReport, downloadReport, sendReport, deleteReport, profile, updateProfile, updateImage, changeRemark
+    index, addPatientPage, createReport, manageTest, allReport, addPatient, editReport, saveReport, viewReport, downloadReport, deleteReport, profile, updateProfile, updateImage, changeRemark
 }

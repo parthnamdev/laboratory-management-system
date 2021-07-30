@@ -179,6 +179,9 @@ input, textarea, select {
     color: gray;
 }
 
+#send-btn {
+    display: none;
+}
 /* .right {
     float: right;
 } */

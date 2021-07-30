@@ -9,13 +9,38 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "echo \"No linting configured\"",
+    "build-installer": "electron-builder"
+  },
+  "build": {
+    "appId": "labory",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "public/images/favicon.ico",
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "installerIcon": "public/images/favicon.ico",
+      "uninstallerIcon": "public/images/favicon.ico",
+      "uninstallDisplayName": "Labory",
+      "license": "license.txt",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   },
   "keywords": [],
   "author": {
     "name": "parthnamdev",
     "email": "parthnamdev@users.noreply.github.com"
   },
+  "contributors": [
+    {
+      "name": "sohamfaldu",
+      "email": "Sommy21@users.noreply.github.com"
+    }
+  ],
   "license": "MIT",
   "config": {
     "forge": {
@@ -46,6 +71,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
+    "custom-electron-titlebar": "^3.2.7",
     "ejs": "^3.1.6",
     "electron-squirrel-startup": "^1.0.0",
     "express": "^4.17.1",
@@ -61,6 +87,7 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.57",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
     "@electron-forge/maker-zip": "^6.0.0-beta.57",
-    "electron": "13.1.6"
+    "electron": "13.1.6",
+    "electron-builder": "^22.11.7"
   }
 }

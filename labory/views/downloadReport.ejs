@@ -114,6 +114,32 @@
             </table>
             
           <% }) %> 
+
+          <h1>Receipt</h1>
+            <table class="table my-3">
+              <tbody>
+                  <thead>
+                      <tr>
+                        <th scope="col" style="width:50%">Test Name</th>
+                        <th scope="col">Price</th>
+                      </tr>
+                    </thead>
+                    <% let sum=0 %>
+              <% for (let index = 0; index < report.tests.length; index++) { %>
+                  <tr>
+                    <% sum = sum+ report.tests[index].price; %>
+                    <td><%= index+1 %>. <%= report.tests[index].name %></td>
+                    <td><%= report.tests[index].price %></td>
+                  </tr>
+              <% } %>
+                  <tr>
+                    <td><b>Total</b></td>
+                    <td><b><%= sum %></b></td>
+                  </tr>
+              </tbody>
+          </table>
+
+
           <h1>Remarks</h1>
           <div class="col-lg-6 col-md-8 col-12">
             <p> <%= report.remark %> </p>

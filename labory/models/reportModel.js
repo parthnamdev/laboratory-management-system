@@ -7,11 +7,13 @@ const reportSchema = new mongoose.Schema({
             name: String,
             range: String
         }],
+        price: Number,
         values: [String]
     }],
     uuid: String,
     patient: String,
-    remark: String
+    remark: String,
+    
 });
 
 const Report = mongoose.model('report', reportSchema);

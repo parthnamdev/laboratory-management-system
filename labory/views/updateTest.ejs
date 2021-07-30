@@ -4,11 +4,16 @@
     <h1>Edit Test</h1>
     <div class="row">
         <form action="/test/updateTest" method="post" class="col-md-6 col-12 mb-5">
-          
+          <div class="row">
              <div class="mb-3 col-lg-6 col-md-12 col-12">
               <label for="test" class="form-label">Name</label>
               <input type="text" class="form-control" id="test" name="test" value="<%= test_details.test %>">
             </div>
+            <div class="mb-3 col-lg-6 col-md-12 col-12">
+              <label for="test" class="form-label">Price</label>
+              <input type="text" class="form-control" id="price" name="price" value="<%= test_details.price %>">
+            </div>
+          </div>
             <div id="entryList" class="col-md-12 col-12">
              <% for(let i =0; i<test_details.entries.length; i++){ %>
                <div id="<%= i %>" class="row">

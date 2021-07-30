@@ -5,7 +5,8 @@ const testSchema = new mongoose.Schema({
     entries: [{
         name: String,
         range: String
-    }]
+    }],
+    price: Number
 });
 
 const Test = mongoose.model('test', testSchema);
