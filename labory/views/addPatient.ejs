@@ -42,6 +42,7 @@
 <div class="custom-padding">
     <h1 class="mb-4">Test details</h1>
     <div class="row">
+    <% if(tests.length > 0) { %>
     <% tests.forEach(element => { %>
       <div class="form-check col-lg-6 col-md-12 my-2">
         <input class="form-check-input select" type="checkbox" name="tests" value="<%= element.test %>" id="<%= element.test %>">
@@ -51,8 +52,13 @@
       </div>
 
     <% }); %>
-
+    <% } else { %>
+      <h5>No tests available</h5>
+      <p>Before adding patient, add test by going to 'Manage Tests'</p>
+    <% } %>
+    <div class="row">
     <button class="btn btn-dark col-lg-2 col-md-4 col-6 my-5" type="submit" id="submitBtn">Submit</button>
+  </div>
   </div>
   </form>
 

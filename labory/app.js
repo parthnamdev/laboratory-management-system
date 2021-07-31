@@ -54,20 +54,17 @@ app.use('/', homeRouter);
 
 const port = process.env.PORT || 3000;
 
-// app.get('/', function(req, res){
-//     res.render("index");
-// })
 
 app.listen(port, () => {
     console.log("Server is running on PORT " + port +"...")
 });
 
-// app.get('*', (req, res) => {
-//     res.status(404).render('404');
-// });
-// app.post('*', (req, res) => {
-//     res.status(404).render('404');
-// });
+app.get('*', (req, res) => {
+    res.status(404).render('err', {error: '404, Page not found'});
+});
+app.post('*', (req, res) => {
+    res.status(404).render('err', {error: '404, Page not found'});
+});
 
 
 
