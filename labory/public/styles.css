@@ -16,6 +16,11 @@ body {
     padding: 5% 12% 1%;
 }
 
+.custom-x-padding {
+    padding-left: 12%;
+    padding-right: 12%;
+}
+
 .large-top-padding {
     margin-top: 250px;
 }

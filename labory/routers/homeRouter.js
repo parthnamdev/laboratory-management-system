@@ -11,7 +11,6 @@ router.get('/editReport/:uuid', homeController.editReport)
 router.get('/manageTest', homeController.manageTest);
 router.get('/sendReport', homeController.allReport);
 router.get('/viewReport/:uuid',homeController.viewReport);
-router.get('/downloadReport/:uuid', homeController.downloadReport);
 
 router.get('/deleteReport/:uuid',homeController.deleteReport);
 router.get('/profile', homeController.profile);

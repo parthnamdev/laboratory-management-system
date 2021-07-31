@@ -2,30 +2,49 @@
     
     <div class="custom-padding" id="report-content">
 
-      
+        <% if(profile == {}) { %>
+          <div class="col-lg-4 col-md-12 col-12 mb-3">
+            <img src="" alt="Company logo" class="col-lg-6 col-md-4 col-6" style="width: 20%;">
+            </div>
+            <div class="col-lg-6 col-md-12 col-12 mb-5">
+              <table>
+                <tr>
+                  <td>Company Name</td>
+                </tr>
+                <tr>
+                  <td>Address</td>
+                </tr>
+                <tr>
+                  <td>Number</td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                </tr>
+              </table>
+              <small class="watermark">You can edit company details in Profile tab</small>
+            </div>
+          <% } else { %>
         <div class="col-lg-4 col-md-12 col-12 mb-3">
-        <img src="data:<%= profile.mimetype %>;base64,<%= profile.logo %>" alt="" class="col-lg-6 col-md-4 col-6">
+        <img src="data:<%= profile.mimetype %>;base64,<%= profile.logo %>" alt="" class="col-lg-6 col-md-4 col-6" style="width: 20%;">
         </div>
         <div class="col-lg-6 col-md-12 col-12 mb-5">
           <table>
             <tr>
-              <!-- <td class="pe-3">Name:</td> -->
               <td><%= profile.name %></td>
             </tr>
             <tr>
-              <!-- <td class="pe-3">Address:</td> -->
               <td><%= profile.address %></td>
             </tr>
             <tr>
-              <!-- <td class="pe-3">Number:</td> -->
               <td><%= profile.number %></td>
             </tr>
             <tr>
-              <!-- <td class="pe-3">Email:</td> -->
               <td><%= profile.email %></td>
             </tr>
           </table>
         </div>
+
+        <% } %>
         <h1 class="">PATIENT REPORT</h1>
         <hr>
           <div class="row mt-4">
@@ -117,28 +136,49 @@
               <p> <%= report.remark %> </p>
             </div>
 
-          <form action="/changeRemark/<%= report.uuid %>" method="post" class="my-5">
-            <div class="form-floating">
-              <textarea class="form-control" placeholder="Leave remarks here" name="remarks" id="floatingTextarea2" style="height: 100px" required></textarea>
-              <label for="floatingTextarea2">Edit Remarks</label>
-            </div>
-            
-            <button type="submit" class="btn btn-outline-dark mt-4">Update Remarks</button>
-            <a type="button" class="btn btn-dark mt-4" href="/downloadReport/<%= report.uuid %>" onclick="displayMsg()">Download PDF</a>
-            <div>
-            <small id="downloadMsg"></small>
-            </div>
-            
-          </form>
+          
 
           
 
-          <p class="watermark text-center my-5">Created using LABORY</p>
+          
             <!-- <button onclick="downloadPDF()">submit</button> -->
 
           
         
     </div>
+    <div class="custom-x-padding">
+    <form action="/changeRemark/<%= report.uuid %>" method="post" class="mb-5">
+      <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave remarks here" name="remarks" id="floatingTextarea2" style="height: 100px" required></textarea>
+        <label for="floatingTextarea2">Edit Remarks</label>
+      </div>
+      
+      <button type="submit" class="btn btn-outline-dark mt-4">Update Remarks</button>
+      <button class="btn btn-dark mt-4" type="button" id="PrintNow">Print PDF</button>
+      <div>
+      
+      </div>
+      
+    </form>
+    <p class="watermark text-center my-5">Created using LABORY</p>
+  </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+    <script>
+      $("#PrintNow").on("click", function () {
+              var divContents = $("#report-content").html();
+              var printWindow = window.open('', '', 'height=400,width=800');
+              // console.log(window.document);
+              printWindow.document.write('<html><head>');
+              printWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">');
+              printWindow.document.write('<link rel="stylesheet" href="styles.css">');
+              printWindow.document.write('<title>Labory</title></head><body >');
+              printWindow.document.write(divContents);
+              printWindow.document.write('<p class="watermark text-center my-5">Created using LABORY</p>');
+              printWindow.document.write('</body></html>');
+              printWindow.document.close();
+              printWindow.print();
+          });
+    </script>
     <script>
       function displayMsg() {
         let msg = document.getElementById("downloadMsg");
@@ -154,6 +194,7 @@
         
       }
     </script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 

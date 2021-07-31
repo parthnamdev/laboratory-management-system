@@ -42,6 +42,7 @@ app.use('/test',express.static(__dirname + "/node_modules/@fortawesome"));
 
 app.use('/viewReport',express.static(__dirname + '/public'));
 app.use('/viewReport',express.static(__dirname + "/node_modules/@fortawesome"));
+app.use('/viewReport',express.static(__dirname + '/src'));
 // app.use(bodyparser.urlencoded({extended:true}));
 
 app.use('/downloadReport',express.static(__dirname + '/public'));

@@ -13,7 +13,9 @@ function createWindow() {
     useContentSize: true,
     resizable: true,
     webPreferences: {
-      devTools: false
+      devTools: true,
+      nativeWindowOpen: true,
+      nodeIntegration: true
     }
   });
   mainWindow.loadURL('http://localhost:3000/');
