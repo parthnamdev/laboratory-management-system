@@ -13,7 +13,7 @@ function createWindow() {
     useContentSize: true,
     resizable: true,
     webPreferences: {
-      devTools: true,
+      devTools: false,
       nativeWindowOpen: true,
       nodeIntegration: true
     }
