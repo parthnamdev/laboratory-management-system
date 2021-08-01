@@ -36,7 +36,7 @@ function createWindow() {
       
       mainWindow.loadURL('http://localhost:3002/');
 
-     }, 2000);
+     }, 3000);
     
   })
   // loading.loadURL('loading.html');
